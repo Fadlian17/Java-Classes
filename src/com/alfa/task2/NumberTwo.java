@@ -1,7 +1,16 @@
 package com.alfa.task2;
 
+
 public class NumberTwo {
+
     public static void main(String[] args) {
+        System.out.printf("==Number 2==\n");
+        LengthWord("aku");
+        LengthWord("ingin");
+        LengthWord("la...");
+
+    }
+    private static void LengthWord(String words){
         // teks string yang diperiksa
         var lyric = "Aku ingin begini\n" +
                 "Aku ingin begitu\n" +
@@ -18,28 +27,21 @@ public class NumberTwo {
                 "Doraemon\n\n" +
                 "La... la... la...\n" +
                 "Aku sayang sekali";
-        var jumlah = 0;
-        var jumlah1 = 0;// jumlah kata awal
-        var indeks = -1;  // posisi indeks awal
-        var kata = "La...";
-        var kata2 = "Aku";
+        var lowerCase = lyric.replace("\n", " ").toLowerCase();
 
-        // Mencari kata "yang"
-        indeks = lyric.indexOf(kata);
-        while (indeks >= 0) {
-            ++jumlah1;
-            indeks += kata.length();
-            indeks = lyric.indexOf(kata, indeks);
-        }
-        indeks = lyric.indexOf(kata2);
-        while (indeks >= 0) {
-            ++jumlah;
-            indeks += kata.length();
-            indeks = lyric.indexOf(kata, indeks);
-        }
-        System.out.println(lyric);
-        System.out.println();
-        System.out.println("Teks berisi kata: " + "\n" + "La... = " + jumlah1);
-        System.out.println("Teks berisi kata: " + "\n" + "aku = " + jumlah);
+        System.out.println(" Kata "+words+" berjumlah "+LogicWords(lowerCase, words));
     }
+
+     static int LogicWords(String str,String words){
+        String[] a = str.split(" ");
+
+        int count = 0;
+        for (String s : a) {
+            if (words.equals(s))
+                count++;
+        }
+
+        return count;
+    }
+
 }
