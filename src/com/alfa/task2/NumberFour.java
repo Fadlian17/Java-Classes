@@ -1,37 +1,44 @@
 package com.alfa.task2;
 
+import com.alfa.task2.model.FruitModel;
 
-import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.util.List;
 
 public class NumberFour {
-    public static void main(String[] args) {
-        System.out.printf("==Number 4==\n");
-        showName();
-        showRange();
 
+
+    public static void main(String[] args){
+        run();
     }
 
-    private static void showRange() {
+    public static void run() {
+        var list = List.of(
+                new FruitModel(21, "Pears - 1 Kg", 69),
+                new FruitModel(22, "Pomegranate - 1 Kg", 95),
+                new FruitModel(23, "Raspberry - 1/4 Kg", 160),
+                new FruitModel(24, "Strawberry - 1/4 Kg", 180),
+                new FruitModel(25, "Water Melon - 1 Kg", 28)
+        );
+
+        // 1
         try {
-            var inputStream = new FileInputStream("src/com/alfa/task2/files/file.json");
-            System.out.println("range value 50 - 100."+new String(inputStream.readAllBytes()));
-            inputStream.close();
+            var file = new FileOutputStream("src/com/multidynamika/javabasic/file.json");
+            file.write(list.toString().getBytes());
+            file.flush();
+            file.close();
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
-    }
 
-    private static void showName() {
-        try {
-            var inputStream = new FileInputStream("src/com/alfa/task2/files/file.json");
-            System.out.println("name by 'berry'"+new String(inputStream.readAllBytes()));
-            inputStream.close();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
+        // 2
+        list.stream()
+                .filter(s -> s.name.contains("berry"))
+                .forEach(System.out::println);
 
+        // 3
+        list.stream()
+                .filter(s -> s.price >= 50 && s.price <= 100)
+                .forEach(System.out::println);
+    }
 }
-
-
-

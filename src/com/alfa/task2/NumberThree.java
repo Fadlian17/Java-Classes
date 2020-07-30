@@ -1,6 +1,9 @@
 package com.alfa.task2;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class NumberThree {
     public static void main(String[] args) {
@@ -39,7 +42,38 @@ public class NumberThree {
 
         // Kerjakan di bawah ini
 
-        System.out.println(list);
+        // 1
+        list.stream().filter(s -> {
+            var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+            var date = LocalDateTime.parse(s.createdAt, formatter);
+
+            return date.getMonthValue() == 2;
+        }).forEach(System.out::println);
+
+        System.out.println("\n---\n");
+
+        // 2
+        var total = list.stream()
+                .filter(s -> s.customer.name.equalsIgnoreCase("ari"))
+                .map(s -> s.items.stream()
+                        .map(x -> x.price * x.qty)
+                        .reduce(0, Integer::sum))
+                .reduce(0, Integer::sum);
+        System.out.println("Total harga dari semua item yang dibeli oleh Ari: " + total);
+
+        System.out.println("\n---\n");
+
+        // 3
+        var customers = list.stream()
+                .filter(s -> s.items.stream()
+                        .map(x -> x.price * x.qty)
+                        .reduce(0, Integer::sum) < 300000)
+                .map(s -> s.customer.name)
+                .distinct()
+                .collect(Collectors.toList());
+        System.out.println(customers);
+
+        System.out.println("\n--- Version 2.0\n");
 
     }
 
