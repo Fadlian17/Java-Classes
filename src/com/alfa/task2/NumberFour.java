@@ -23,7 +23,7 @@ public class NumberFour {
 
         // 1
         try {
-            var file = new FileOutputStream("src/com/multidynamika/javabasic/file.json");
+            var file = new FileOutputStream("src/com/alfa/task2/files/file.json");
             file.write(list.toString().getBytes());
             file.flush();
             file.close();
